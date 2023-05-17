@@ -218,7 +218,7 @@ libwhisper.so: ggml.o $(WHISPER_OBJ)
 	$(CXX) $(CXXFLAGS) -shared -o libwhisper.so ggml.o $(WHISPER_OBJ) $(LDFLAGS)
 
 clean:
-	rm -f *.o main stream command talk talk-llama bench libwhisper.a libwhisper.so
+	rm -f *.o main speech2txt stream command talk talk-llama bench libwhisper.a libwhisper.so
 
 #
 # Examples
@@ -232,7 +232,10 @@ SRC_COMMON_SDL = examples/common-sdl.cpp
 main: examples/main/main.cpp $(SRC_COMMON) ggml.o $(WHISPER_OBJ)
 	$(CXX) $(CXXFLAGS) examples/main/main.cpp $(SRC_COMMON) ggml.o $(WHISPER_OBJ) -o main $(LDFLAGS)
 	./main -h
-
+speech2txt: examples/speech2txt/main.cpp $(SRC_COMMON) ggml.o $(WHISPER_OBJ)
+	$(CXX) $(CXXFLAGS) examples/speech2txt/main.cpp $(SRC_COMMON) ggml.o $(WHISPER_OBJ) -o speech2txt $(LDFLAGS)
+	rm /Users/alex/work/openai/speech-api/speech2txt
+	cp speech2txt /Users/alex/work/openai/speech-api/
 bench: examples/bench/bench.cpp ggml.o $(WHISPER_OBJ)
 	$(CXX) $(CXXFLAGS) examples/bench/bench.cpp ggml.o $(WHISPER_OBJ) -o bench $(LDFLAGS)
 
